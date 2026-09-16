@@ -1425,139 +1425,128 @@ body.light .field select {
         --sidebar: 0px;
     }
     .sidebar {
-        width:
-            270px;
-        transform:
-            translateX(-100%);
-        transition:
-            .25s;
+        width: 270px;
+        transform: translateX(-100%);
+        transition: .25s;
     }
     .sidebar.open {
-        transform:
-            translateX(0);
+        transform: translateX(0);
     }
     .main {
-        margin-left:
-            0;
+        margin-left: 0;
     }
     .header {
-        left:
-            0;
-        padding:
-            0 13px;
+        left: 0;
+        padding: 0 13px;
     }
     .mobile-menu {
-        display:
-            grid;
-        place-items:
-            center;
-        width:
-            38px;
-        height:
-            38px;
-        border:
-            1px solid var(--border);
-        border-radius:
-            11px;
-        background:
-            var(--panel);
-        color:
-            var(--text);
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border: 1px solid var(--border);
+        border-radius: 11px;
+        background: var(--panel);
+        color: var(--text);
     }
     .header-title {
-        display:
-            none;
+        display: none;
     }
     .content {
         padding:
             calc(var(--header) + 17px)
             13px
-            25px;
+            90px;
     }
     .welcome {
-        min-height:
-            245px;
-        align-items:
-            flex-start;
+        min-height: 260px;
+        padding: 24px 24px 90px;
+        align-items: flex-start;
+        overflow: visible;
     }
     .orbit {
-        width:
-            100px;
-        height:
-            100px;
-        position:
-            absolute;
-        right:
-            -20px;
-        bottom:
-            15px;
-        opacity:
-            .6;
+        width: 110px;
+        height: 110px;
+        position: absolute;
+        right: 14px;
+        bottom: 14px;
+        opacity: .85;
     }
     .orbit::before {
-        inset:
-            12px;
+        inset: 12px;
     }
     .orbit::after {
-        inset:
-            30px;
-        font-size:
-            20px;
+        inset: 32px;
+        font-size: 22px;
     }
     .stats {
-        grid-template-columns:
-            repeat(2,1fr);
+        grid-template-columns: repeat(2,1fr);
     }
     .form-grid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
     .field.full {
-        grid-column:
-            auto;
+        grid-column: auto;
     }
     .notes-grid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
     .sticky-grid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
     .page-heading {
-        align-items:
-            flex-start;
-        flex-direction:
-            column;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .dashboard-grid + .card {
+        margin-bottom: 90px;
     }
 }
 @media(max-width:450px) {
     .stats {
-        grid-template-columns:
-            1fr 1fr;
+        grid-template-columns: 1fr 1fr;
     }
     .stat {
-        padding:
-            14px;
+        padding: 14px;
     }
     .stat-number {
-        font-size:
-            24px;
+        font-size: 24px;
     }
     .header-right .time {
-        display:
-            none;
+        display: none;
     }
     .assessment-large {
-        grid-template-columns:
-            5px 1fr;
+        grid-template-columns: 5px 1fr;
     }
     .assessment-large >
     .assessment-actions {
-        grid-column:
-            2;
-        justify-content:
-            flex-start;
+        grid-column: 2;
+        justify-content: flex-start;
+    }
+    .welcome {
+        min-height: 250px;
+        padding: 22px 20px 80px;
+        overflow: visible;
+    }
+    .orbit {
+        width: 90px;
+        height: 90px;
+        right: 12px;
+        bottom: 12px;
+        opacity: .8;
+    }
+    .orbit::before {
+        inset: 10px;
+    }
+    .orbit::after {
+        inset: 26px;
+        font-size: 18px;
+    }
+    .content {
+        padding-bottom: 100px;
+    }
+    .dashboard-grid + .card {
+        margin-bottom: 100px;
     }
 }
 </style>
