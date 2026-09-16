@@ -4708,6 +4708,29 @@ async function init() {
 }
 
 init();
+      
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker
+            .register("./sw.js")
+            .then(reg => {
+                console.log("StudyPad SW registered:", reg.scope);
+
+                // Ask browser for periodic background sync (Android/Chrome)
+                if ("periodicSync" in reg) {
+                    reg.periodicSync
+                        .register("studypad-reminder-check", {
+                            minInterval: 15 * 60 * 1000 // 15 minutes
+                        })
+                        .catch(() => {});
+                }
+            })
+            .catch(err =>
+                console.warn("SW registration failed:", err)
+            );
+    });
+}
+      
 </script>
 </body>
 </html>
