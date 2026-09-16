@@ -1,0 +1,7436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0,
+               maximum-scale=1.0,
+               user-scalable=no">
+
+<meta name="theme-color" content="#080b18">
+
+<title>StudyPad — Student Academic Dashboard</title>
+
+<style>
+
+/* =========================================================
+   STUDYPAD
+   PROFESSIONAL STUDENT PRODUCTIVITY APP
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+
+    --bg: #060813;
+    --bg2: #0b1020;
+
+    --panel: rgba(17, 23, 43, .78);
+    --panel-solid: #10162a;
+
+    --border: rgba(132, 151, 255, .18);
+
+    --text: #f7f8ff;
+    --muted: #8f98b5;
+
+    --primary: #7c6cff;
+    --primary2: #4e9bff;
+
+    --green: #43d98a;
+    --orange: #ffb84d;
+    --red: #ff647d;
+    --cyan: #47d9ff;
+    --pink: #e86cff;
+
+    --radius: 20px;
+
+    --sidebar: 250px;
+    --header: 74px;
+
+}
+
+body.light {
+
+    --bg: #f1f4fc;
+    --bg2: #ffffff;
+
+    --panel: rgba(255,255,255,.88);
+    --panel-solid: #ffffff;
+
+    --border: rgba(60, 75, 130, .14);
+
+    --text: #151a2b;
+    --muted: #69718b;
+
+}
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+}
+
+body {
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+
+    background:
+
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(94,75,255,.16),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 90% 20%,
+            rgba(0,174,255,.10),
+            transparent 28%
+        ),
+
+        radial-gradient(
+            circle at 50% 100%,
+            rgba(177,60,255,.09),
+            transparent 35%
+        ),
+
+        var(--bg);
+
+    transition:
+        background .3s,
+        color .3s;
+
+}
+
+
+/* =========================================================
+   APP
+========================================================= */
+
+.app {
+
+    width: 100%;
+    height: 100vh;
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: var(--sidebar);
+
+    padding: 20px 14px;
+
+    z-index: 50;
+
+    background:
+        rgba(7,10,23,.88);
+
+    backdrop-filter:
+        blur(25px);
+
+    border-right:
+        1px solid var(--border);
+
+}
+
+body.light .sidebar {
+
+    background:
+        rgba(255,255,255,.88);
+
+}
+
+
+.brand {
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    padding: 8px 10px 28px;
+
+}
+
+
+.brand-logo {
+
+    width: 42px;
+    height: 42px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    color: white;
+
+    font-size: 22px;
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+    box-shadow:
+        0 8px 30px rgba(103,87,255,.35);
+
+}
+
+
+.brand-name {
+
+    font-size: 21px;
+    font-weight: 850;
+
+}
+
+
+.brand-sub {
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    margin-top: 2px;
+
+}
+
+
+.nav-section {
+
+    margin-bottom: 22px;
+
+}
+
+
+.nav-title {
+
+    padding:
+        0 12px 8px;
+
+    color: var(--muted);
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.2px;
+
+}
+
+
+.nav-item {
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 13px;
+
+    margin-bottom: 4px;
+
+    border: none;
+
+    border-radius: 13px;
+
+    background: transparent;
+
+    color: var(--muted);
+
+    cursor: pointer;
+
+    text-align: left;
+
+    font-size: 14px;
+
+    transition: .2s;
+
+}
+
+
+.nav-item:hover {
+
+    color: var(--text);
+
+    background:
+        rgba(124,108,255,.09);
+
+}
+
+
+.nav-item.active {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(124,108,255,.95),
+            rgba(78,155,255,.82)
+        );
+
+    box-shadow:
+        0 8px 25px rgba(87,76,255,.20);
+
+}
+
+
+.nav-icon {
+
+    width: 25px;
+
+    text-align: center;
+
+    font-size: 17px;
+
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.main {
+
+    margin-left: var(--sidebar);
+
+    height: 100vh;
+
+}
+
+
+.header {
+
+    position: fixed;
+
+    left: var(--sidebar);
+    right: 0;
+    top: 0;
+
+    height: var(--header);
+
+    z-index: 40;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    padding:
+        0 25px;
+
+    background:
+        rgba(6,8,19,.72);
+
+    backdrop-filter:
+        blur(22px);
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+body.light .header {
+
+    background:
+        rgba(255,255,255,.80);
+
+}
+
+
+.header-left {
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+}
+
+
+.mobile-menu {
+
+    display: none;
+
+}
+
+
+.header-title {
+
+    font-size: 17px;
+    font-weight: 750;
+
+}
+
+
+.header-date {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+    margin-top: 2px;
+
+}
+
+
+.header-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.time {
+
+    padding:
+        8px 12px;
+
+    border-radius: 12px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+.header-btn {
+
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid var(--border);
+
+    background:
+        var(--panel);
+
+    color: var(--text);
+
+    cursor: pointer;
+
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.content {
+
+    height: 100vh;
+
+    overflow-y: auto;
+
+    padding:
+        calc(var(--header) + 25px)
+        25px
+        35px;
+
+}
+
+
+.content::-webkit-scrollbar {
+
+    width: 5px;
+
+}
+
+
+.content::-webkit-scrollbar-thumb {
+
+    background:
+        rgba(124,108,255,.3);
+
+    border-radius: 10px;
+
+}
+
+
+.page {
+
+    display: none;
+
+    max-width: 1250px;
+
+    margin: auto;
+
+    animation:
+        pageIn .3s ease;
+
+}
+
+
+.page.active {
+
+    display: block;
+
+}
+
+
+@keyframes pageIn {
+
+    from {
+
+        opacity: 0;
+        transform:
+            translateY(7px);
+
+    }
+
+    to {
+
+        opacity: 1;
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+.page-heading {
+
+    display: flex;
+
+    align-items: flex-end;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.page-heading h1 {
+
+    font-size:
+        clamp(25px,4vw,36px);
+
+    letter-spacing:
+        -.8px;
+
+}
+
+
+.page-heading p {
+
+    color: var(--muted);
+
+    margin-top: 5px;
+
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+
+    border: none;
+
+    padding:
+        11px 16px;
+
+    border-radius: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+    box-shadow:
+        0 8px 25px rgba(91,76,255,.20);
+
+    transition: .2s;
+
+}
+
+
+.btn:hover {
+
+    transform:
+        translateY(-2px);
+
+}
+
+
+.btn.secondary {
+
+    color: var(--text);
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow: none;
+
+}
+
+
+.btn.danger {
+
+    background:
+        rgba(255,80,105,.12);
+
+    color:
+        #ff7186;
+
+    box-shadow: none;
+
+}
+
+
+.btn.success {
+
+    background:
+        rgba(67,217,138,.14);
+
+    color:
+        var(--green);
+
+    box-shadow: none;
+
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.welcome {
+
+    padding:
+        27px;
+
+    min-height: 205px;
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    overflow: hidden;
+
+    position: relative;
+
+    border-radius:
+        27px;
+
+    background:
+
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(110,91,255,.30),
+            transparent 30%
+        ),
+
+        radial-gradient(
+            circle at 20% 100%,
+            rgba(0,174,255,.13),
+            transparent 35%
+        ),
+
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.welcome h1 {
+
+    font-size:
+        clamp(27px,5vw,43px);
+
+    line-height: 1.08;
+
+}
+
+
+.welcome p {
+
+    max-width: 580px;
+
+    margin-top: 10px;
+
+    color: var(--muted);
+
+}
+
+
+.orbit {
+
+    width: 170px;
+    height: 170px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(130,112,255,.5);
+
+    box-shadow:
+        0 0 45px rgba(111,91,255,.22);
+
+    position: relative;
+
+    animation:
+        float 5s ease-in-out infinite;
+
+}
+
+
+.orbit::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 18px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid rgba(74,190,255,.35);
+
+}
+
+
+.orbit::after {
+
+    content: "✓";
+
+    position: absolute;
+
+    inset: 48px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    font-size: 32px;
+    font-weight: 900;
+
+    background:
+        linear-gradient(
+            135deg,
+            #765cff,
+            #2d9fff
+        );
+
+    box-shadow:
+        0 0 35px rgba(102,85,255,.65);
+
+}
+
+
+@keyframes float {
+
+    50% {
+
+        transform:
+            translateY(-9px)
+            rotate(4deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 13px;
+
+    margin-top: 15px;
+
+}
+
+
+.stat {
+
+    padding:
+        18px;
+
+    border-radius:
+        19px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.stat-top {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+.stat-number {
+
+    font-size: 30px;
+
+    font-weight: 850;
+
+    margin-top: 9px;
+
+}
+
+
+.stat-icon {
+
+    width: 36px;
+    height: 36px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 11px;
+
+    background:
+        rgba(124,108,255,.12);
+
+}
+
+
+.stat.green .stat-icon {
+
+    background:
+        rgba(67,217,138,.12);
+
+}
+
+
+.stat.orange .stat-icon {
+
+    background:
+        rgba(255,184,77,.12);
+
+}
+
+
+.stat.red .stat-icon {
+
+    background:
+        rgba(255,100,125,.12);
+
+}
+
+
+/* =========================================================
+   DASHBOARD GRID
+========================================================= */
+
+.dashboard-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1.35fr .65fr;
+
+    gap: 15px;
+
+    margin-top: 15px;
+
+}
+
+
+.card {
+
+    padding:
+        19px;
+
+    border-radius:
+        20px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.card-header {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    margin-bottom: 14px;
+
+}
+
+
+.card-header h2 {
+
+    font-size: 17px;
+
+}
+
+
+.card-header span {
+
+    color: var(--muted);
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   ASSESSMENT CARD
+========================================================= */
+
+.assessment-card {
+
+    padding:
+        15px;
+
+    margin-bottom:
+        8px;
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border:
+        1px solid rgba(255,255,255,.04);
+
+}
+
+
+body.light .assessment-card {
+
+    background:
+        rgba(40,50,90,.035);
+
+}
+
+
+.assessment-top {
+
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    gap: 12px;
+
+}
+
+
+.assessment-name {
+
+    font-weight: 750;
+
+}
+
+
+.assessment-meta {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    margin-top: 5px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+
+.badge {
+
+    padding:
+        4px 8px;
+
+    border-radius:
+        20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.badge.pending {
+
+    color:
+        #b9adff;
+
+    background:
+        rgba(124,108,255,.12);
+
+}
+
+
+.badge.completed {
+
+    color:
+        var(--green);
+
+    background:
+        rgba(67,217,138,.11);
+
+}
+
+
+.badge.overdue {
+
+    color:
+        var(--red);
+
+    background:
+        rgba(255,100,125,.11);
+
+}
+
+
+.countdown {
+
+    margin-top:
+        13px;
+
+    display: flex;
+
+    gap: 7px;
+
+}
+
+
+.time-box {
+
+    min-width: 55px;
+
+    padding:
+        8px 6px;
+
+    text-align:
+        center;
+
+    border-radius:
+        11px;
+
+    background:
+        rgba(124,108,255,.08);
+
+    border:
+        1px solid rgba(124,108,255,.10);
+
+}
+
+
+.time-box strong {
+
+    display: block;
+
+    font-size: 17px;
+
+}
+
+
+.time-box small {
+
+    color: var(--muted);
+
+    font-size: 8px;
+
+    text-transform:
+        uppercase;
+
+}
+
+
+.assessment-actions {
+
+    display: flex;
+
+    justify-content:
+        flex-end;
+
+    gap: 5px;
+
+    margin-top:
+        10px;
+
+}
+
+
+.small-btn {
+
+    border: none;
+
+    background:
+        transparent;
+
+    color:
+        var(--muted);
+
+    padding:
+        7px 9px;
+
+    border-radius:
+        9px;
+
+    cursor: pointer;
+
+}
+
+
+.small-btn:hover {
+
+    color:
+        var(--text);
+
+    background:
+        rgba(255,255,255,.06);
+
+}
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7,1fr);
+
+    gap: 5px;
+
+}
+
+
+.calendar-day {
+
+    min-height: 46px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius:
+        9px;
+
+    color: var(--muted);
+
+    font-size: 11px;
+
+}
+
+
+.calendar-day.head {
+
+    min-height: 25px;
+
+    font-weight: 700;
+
+    color: var(--muted);
+
+}
+
+
+.calendar-day.today {
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+}
+
+
+.calendar-day.deadline {
+
+    position: relative;
+
+}
+
+
+.calendar-day.deadline::after {
+
+    content: "";
+
+    position: absolute;
+
+    bottom: 5px;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background:
+        var(--red);
+
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+.form-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 15px;
+
+}
+
+
+.field {
+
+    display: flex;
+
+    flex-direction:
+        column;
+
+    gap: 7px;
+
+}
+
+
+.field.full {
+
+    grid-column:
+        1 / -1;
+
+}
+
+
+.field label {
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    font-weight:
+        650;
+
+}
+
+
+.field input,
+.field textarea,
+.field select {
+
+    width: 100%;
+
+    border:
+        1px solid var(--border);
+
+    outline: none;
+
+    border-radius:
+        13px;
+
+    padding:
+        12px 13px;
+
+    background:
+        rgba(0,0,0,.13);
+
+    color:
+        var(--text);
+
+    font:
+        inherit;
+
+}
+
+
+body.light .field input,
+body.light .field textarea,
+body.light .field select {
+
+    background:
+        rgba(30,40,80,.035);
+
+}
+
+
+.field textarea {
+
+    min-height:
+        120px;
+
+    resize:
+        vertical;
+
+}
+
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+
+    border-color:
+        rgba(124,108,255,.65);
+
+    box-shadow:
+        0 0 0 3px rgba(124,108,255,.08);
+
+}
+
+
+.form-actions {
+
+    display: flex;
+
+    justify-content:
+        flex-end;
+
+    gap: 8px;
+
+    margin-top:
+        17px;
+
+}
+
+
+/* =========================================================
+   ASSESSMENTS
+========================================================= */
+
+.assessment-list {
+
+    display: grid;
+
+    gap: 9px;
+
+}
+
+
+.assessment-large {
+
+    display: grid;
+
+    grid-template-columns:
+        7px 1fr auto;
+
+    gap: 15px;
+
+    align-items: center;
+
+    padding:
+        16px;
+
+    border-radius:
+        17px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.priority-line {
+
+    height: 65px;
+
+    border-radius:
+        10px;
+
+    background:
+        var(--primary);
+
+}
+
+
+.priority-line.high {
+
+    background:
+        var(--red);
+
+}
+
+
+.priority-line.medium {
+
+    background:
+        var(--orange);
+
+}
+
+
+.priority-line.low {
+
+    background:
+        var(--green);
+
+}
+
+
+.deadline {
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+    margin-top:
+        5px;
+
+}
+
+
+.progress-track {
+
+    height:
+        6px;
+
+    margin-top:
+        11px;
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(255,255,255,.07);
+
+    overflow:
+        hidden;
+
+}
+
+
+.progress-value {
+
+    height: 100%;
+
+    border-radius:
+        inherit;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+}
+
+
+/* =========================================================
+   TIMETABLE
+========================================================= */
+
+.schedule {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(7, minmax(120px,1fr));
+
+    gap: 8px;
+
+    overflow-x:
+        auto;
+
+}
+
+
+.day-column {
+
+    min-width:
+        120px;
+
+    min-height:
+        400px;
+
+    padding:
+        10px;
+
+    border-radius:
+        15px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.day-title {
+
+    font-size:
+        12px;
+
+    font-weight:
+        800;
+
+    padding:
+        5px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.class-item {
+
+    padding:
+        10px;
+
+    margin-bottom:
+        7px;
+
+    border-radius:
+        11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(124,108,255,.17),
+            rgba(78,155,255,.08)
+        );
+
+    border:
+        1px solid rgba(124,108,255,.12);
+
+}
+
+
+.class-time {
+
+    font-size:
+        10px;
+
+    color:
+        var(--cyan);
+
+}
+
+
+.class-name {
+
+    font-size:
+        12px;
+
+    font-weight:
+        700;
+
+    margin-top:
+        4px;
+
+}
+
+
+.class-room {
+
+    font-size:
+        10px;
+
+    color:
+        var(--muted);
+
+    margin-top:
+        3px;
+
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.notes-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:
+        13px;
+
+}
+
+
+.note-card {
+
+    min-height:
+        180px;
+
+    padding:
+        18px;
+
+    border-radius:
+        18px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+    position:
+        relative;
+
+}
+
+
+.note-card h3 {
+
+    font-size:
+        15px;
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.note-card p {
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.65;
+
+    white-space:
+        pre-wrap;
+
+}
+
+
+.note-date {
+
+    position:
+        absolute;
+
+    bottom:
+        13px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        10px;
+
+}
+
+
+.note-actions {
+
+    position:
+        absolute;
+
+    right:
+        10px;
+
+    top:
+        10px;
+
+}
+
+
+/* =========================================================
+   STICKY NOTES
+========================================================= */
+
+.sticky-grid {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:
+        15px;
+
+}
+
+
+.sticky {
+
+    min-height:
+        210px;
+
+    padding:
+        19px;
+
+    border-radius:
+        4px;
+
+    color:
+        #1a1a22;
+
+    position:
+        relative;
+
+    box-shadow:
+        0 14px 30px rgba(0,0,0,.18);
+
+    transform:
+        rotate(var(--rotation));
+
+}
+
+
+.sticky:nth-child(4n+1) {
+
+    background:
+        #ffe98b;
+
+}
+
+
+.sticky:nth-child(4n+2) {
+
+    background:
+        #a9eaff;
+
+}
+
+
+.sticky:nth-child(4n+3) {
+
+    background:
+        #d8b5ff;
+
+}
+
+
+.sticky:nth-child(4n+4) {
+
+    background:
+        #aef5c4;
+
+}
+
+
+.sticky h3 {
+
+    margin-bottom:
+        10px;
+
+}
+
+
+.sticky p {
+
+    font-size:
+        13px;
+
+    line-height:
+        1.6;
+
+    white-space:
+        pre-wrap;
+
+}
+
+
+.sticky button {
+
+    position:
+        absolute;
+
+    right:
+        8px;
+
+    top:
+        8px;
+
+    border:
+        none;
+
+    background:
+        rgba(0,0,0,.10);
+
+    border-radius:
+        50%;
+
+    width:
+        27px;
+
+    height:
+        27px;
+
+    cursor:
+        pointer;
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        10px;
+
+    height:
+        48px;
+
+    padding:
+        0 14px;
+
+    border-radius:
+        14px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+    margin-bottom:
+        18px;
+
+}
+
+
+.search input {
+
+    flex:
+        1;
+
+    border:
+        none;
+
+    outline:
+        none;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    font:
+        inherit;
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.settings-card {
+
+    margin-bottom:
+        15px;
+
+}
+
+
+.setting-row {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    padding:
+        16px 3px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.setting-row:last-child {
+
+    border-bottom:
+        none;
+
+}
+
+
+.setting-info strong {
+
+    display:
+        block;
+
+}
+
+
+.setting-info small {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    margin-top:
+        3px;
+
+}
+
+
+.toggle {
+
+    width:
+        48px;
+
+    height:
+        27px;
+
+    border-radius:
+        30px;
+
+    background:
+        #2b3043;
+
+    position:
+        relative;
+
+    cursor:
+        pointer;
+
+}
+
+
+.toggle::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    top:
+        3px;
+
+    left:
+        3px;
+
+    width:
+        21px;
+
+    height:
+        21px;
+
+    border-radius:
+        50%;
+
+    background:
+        white;
+
+    transition:
+        .2s;
+
+}
+
+
+.toggle.on {
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+}
+
+
+.toggle.on::after {
+
+    left:
+        24px;
+
+}
+
+
+/* =========================================================
+   ABOUT
+========================================================= */
+
+.about {
+
+    max-width:
+        650px;
+
+    margin:
+        30px auto;
+
+    text-align:
+        center;
+
+}
+
+
+.about-logo {
+
+    width:
+        100px;
+
+    height:
+        100px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    margin:
+        auto;
+
+    border-radius:
+        28px;
+
+    font-size:
+        48px;
+
+    color:
+        white;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary2)
+        );
+
+    box-shadow:
+        0 20px 60px rgba(93,76,255,.35);
+
+}
+
+
+.about h1 {
+
+    margin-top:
+        20px;
+
+    font-size:
+        37px;
+
+}
+
+
+.about-sub {
+
+    color:
+        var(--muted);
+
+    margin:
+        7px 0 30px;
+
+}
+
+
+.about-box {
+
+    padding:
+        20px;
+
+    border-radius:
+        20px;
+
+    background:
+        var(--panel);
+
+    border:
+        1px solid var(--border);
+
+}
+
+
+.about-line {
+
+    padding:
+        14px;
+
+    border-bottom:
+        1px solid var(--border);
+
+}
+
+
+.about-line:last-child {
+
+    border-bottom:
+        none;
+
+}
+
+
+.about-line span {
+
+    display:
+        block;
+
+    color:
+        var(--muted);
+
+    font-size:
+        11px;
+
+    margin-bottom:
+        4px;
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        200;
+
+    display:
+        none;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    padding:
+        20px;
+
+    background:
+        rgba(0,0,0,.62);
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+
+.modal.open {
+
+    display:
+        flex;
+
+}
+
+
+.modal-box {
+
+    width:
+        min(600px,100%);
+
+    max-height:
+        90vh;
+
+    overflow-y:
+        auto;
+
+    padding:
+        23px;
+
+    border-radius:
+        24px;
+
+    background:
+        var(--panel-solid);
+
+    border:
+        1px solid var(--border);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.45);
+
+}
+
+
+.modal-header {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+.close {
+
+    width:
+        36px;
+
+    height:
+        36px;
+
+    border:
+        none;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color:
+        var(--text);
+
+    cursor:
+        pointer;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        25px;
+
+    z-index:
+        500;
+
+    transform:
+        translate(-50%,20px);
+
+    padding:
+        12px 18px;
+
+    border-radius:
+        30px;
+
+    background:
+        rgba(18,22,43,.96);
+
+    color:
+        white;
+
+    border:
+        1px solid var(--border);
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transition:
+        .3s;
+
+}
+
+
+.toast.show {
+
+    opacity:
+        1;
+
+    transform:
+        translate(-50%,0);
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1050px) {
+
+    :root {
+        --sidebar: 215px;
+    }
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .dashboard-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .notes-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .sticky-grid {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+}
+
+
+@media(max-width:760px) {
+
+    :root {
+        --sidebar: 0px;
+    }
+
+    .sidebar {
+
+        width:
+            270px;
+
+        transform:
+            translateX(-100%);
+
+        transition:
+            .25s;
+
+    }
+
+    .sidebar.open {
+
+        transform:
+            translateX(0);
+
+    }
+
+    .main {
+
+        margin-left:
+            0;
+
+    }
+
+    .header {
+
+        left:
+            0;
+
+        padding:
+            0 13px;
+
+    }
+
+    .mobile-menu {
+
+        display:
+            grid;
+
+        place-items:
+            center;
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+        border:
+            1px solid var(--border);
+
+        border-radius:
+            11px;
+
+        background:
+            var(--panel);
+
+        color:
+            var(--text);
+
+    }
+
+    .header-title {
+
+        display:
+            none;
+
+    }
+
+    .content {
+
+        padding:
+            calc(var(--header) + 17px)
+            13px
+            25px;
+
+    }
+
+    .welcome {
+
+        min-height:
+            245px;
+
+        align-items:
+            flex-start;
+
+    }
+
+    .orbit {
+
+        width:
+            100px;
+
+        height:
+            100px;
+
+        position:
+            absolute;
+
+        right:
+            -20px;
+
+        bottom:
+            15px;
+
+        opacity:
+            .6;
+
+    }
+
+    .orbit::before {
+
+        inset:
+            12px;
+
+    }
+
+    .orbit::after {
+
+        inset:
+            30px;
+
+        font-size:
+            20px;
+
+    }
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .form-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .field.full {
+
+        grid-column:
+            auto;
+
+    }
+
+    .notes-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .sticky-grid {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+    .page-heading {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+    }
+
+}
+
+
+@media(max-width:450px) {
+
+    .stats {
+
+        grid-template-columns:
+            1fr 1fr;
+
+    }
+
+    .stat {
+
+        padding:
+            14px;
+
+    }
+
+    .stat-number {
+
+        font-size:
+            24px;
+
+    }
+
+    .header-right .time {
+
+        display:
+            none;
+
+    }
+
+    .assessment-large {
+
+        grid-template-columns:
+            5px 1fr;
+
+    }
+
+    .assessment-large >
+    .assessment-actions {
+
+        grid-column:
+            2;
+
+        justify-content:
+            flex-start;
+
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside id="sidebar"
+       class="sidebar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            S
+        </div>
+
+        <div>
+
+            <div class="brand-name">
+                StudyPad
+            </div>
+
+            <div class="brand-sub">
+                Student Workspace
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            Workspace
+        </div>
+
+
+        <button class="nav-item active"
+                data-page="dashboard"
+                onclick="openPage('dashboard')">
+
+            <span class="nav-icon">⌂</span>
+
+            Dashboard
+
+        </button>
+
+
+        <button class="nav-item"
+                data-page="assessments"
+                onclick="openPage('assessments')">
+
+            <span class="nav-icon">✓</span>
+
+            Assessments
+
+        </button>
+
+
+        <button class="nav-item"
+                data-page="timetable"
+                onclick="openPage('timetable')">
+
+            <span class="nav-icon">▦</span>
+
+            Timetable
+
+        </button>
+
+
+        <button class="nav-item"
+                data-page="notes"
+                onclick="openPage('notes')">
+
+            <span class="nav-icon">▤</span>
+
+            Notes
+
+        </button>
+
+
+        <button class="nav-item"
+                data-page="sticky"
+                onclick="openPage('sticky')">
+
+            <span class="nav-icon">▧</span>
+
+            Sticky Notes
+
+        </button>
+
+    </div>
+
+
+    <div class="nav-section">
+
+        <div class="nav-title">
+            System
+        </div>
+
+
+        <button class="nav-item"
+                data-page="settings"
+                onclick="openPage('settings')">
+
+            <span class="nav-icon">⚙</span>
+
+            Settings
+
+        </button>
+
+
+        <button class="nav-item"
+                data-page="about"
+                onclick="openPage('about')">
+
+            <span class="nav-icon">ⓘ</span>
+
+            About
+
+        </button>
+
+    </div>
+
+
+    <div style="
+        position:absolute;
+        bottom:20px;
+        left:20px;
+        right:20px;
+        color:var(--muted);
+        font-size:10px;
+        line-height:1.6;
+    ">
+
+        StudyPad 1.0<br>
+        Joheliv Labs · 2026
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<div class="main">
+
+
+<header class="header">
+
+    <div class="header-left">
+
+        <button class="mobile-menu"
+                onclick="toggleSidebar()">
+            ☰
+        </button>
+
+        <div>
+
+            <div id="headerTitle"
+                 class="header-title">
+                Dashboard
+            </div>
+
+            <div id="headerDate"
+                 class="header-date">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div id="liveTime"
+             class="time">
+            00:00:00
+        </div>
+
+        <button class="header-btn"
+                onclick="requestNotifications()">
+            🔔
+        </button>
+
+        <button class="header-btn"
+                onclick="toggleDarkMode()">
+            ◐
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="content">
+
+
+<!-- =====================================================
+     DASHBOARD
+===================================================== -->
+
+<section id="dashboard"
+         class="page active">
+
+    <div class="welcome">
+
+        <div>
+
+            <h1 id="welcomeText">
+                Good evening.
+            </h1>
+
+            <p>
+                Stay organized, stay ahead,
+                and never miss an assessment deadline.
+            </p>
+
+            <button class="btn"
+                    style="margin-top:20px"
+                    onclick="openAssessmentModal()">
+
+                + Add Assessment
+
+            </button>
+
+        </div>
+
+
+        <div class="orbit"></div>
+
+    </div>
+
+
+    <div class="stats">
+
+        <div class="stat">
+
+            <div class="stat-top">
+
+                <span>
+                    Pending
+                </span>
+
+                <div class="stat-icon">
+                    ⏳
+                </div>
+
+            </div>
+
+            <div id="pendingCount"
+                 class="stat-number">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat green">
+
+            <div class="stat-top">
+
+                <span>
+                    Completed
+                </span>
+
+                <div class="stat-icon">
+                    ✓
+                </div>
+
+            </div>
+
+            <div id="completedCount"
+                 class="stat-number">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat orange">
+
+            <div class="stat-top">
+
+                <span>
+                    Due Soon
+                </span>
+
+                <div class="stat-icon">
+                    !
+                </div>
+
+            </div>
+
+            <div id="dueSoonCount"
+                 class="stat-number">
+                0
+            </div>
+
+        </div>
+
+
+        <div class="stat red">
+
+            <div class="stat-top">
+
+                <span>
+                    Overdue
+                </span>
+
+                <div class="stat-icon">
+                    !
+                </div>
+
+            </div>
+
+            <div id="overdueCount"
+                 class="stat-number">
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="dashboard-grid">
+
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Upcoming Assessments
+                </h2>
+
+                <span>
+                    Live countdown
+                </span>
+
+            </div>
+
+            <div id="dashboardAssessments"></div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-header">
+
+                <h2>
+                    Calendar
+                </h2>
+
+                <span id="calendarMonth"></span>
+
+            </div>
+
+            <div id="calendar"
+                 class="calendar"></div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card"
+         style="margin-top:15px">
+
+        <div class="card-header">
+
+            <h2>
+                Today's Timetable
+            </h2>
+
+            <span id="todayName"></span>
+
+        </div>
+
+        <div id="todaySchedule"></div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ASSESSMENTS
+===================================================== -->
+
+<section id="assessments"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <h1>
+                Assessments
+            </h1>
+
+            <p>
+                Manage every assignment, test and deadline.
+            </p>
+
+        </div>
+
+
+        <button class="btn"
+                onclick="openAssessmentModal()">
+
+            + New Assessment
+
+        </button>
+
+    </div>
+
+
+    <div class="search">
+
+        🔍
+
+        <input id="assessmentSearch"
+               type="search"
+               placeholder="Search assessments...">
+
+    </div>
+
+
+    <div id="assessmentList"
+         class="assessment-list">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TIMETABLE
+===================================================== -->
+
+<section id="timetable"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <h1>
+                Timetable
+            </h1>
+
+            <p>
+                Keep your classes and study schedule organized.
+            </p>
+
+        </div>
+
+        <button class="btn"
+                onclick="openScheduleModal()">
+
+            + Add Class
+
+        </button>
+
+    </div>
+
+
+    <div id="schedule"
+         class="schedule">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NOTES
+===================================================== -->
+
+<section id="notes"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <h1>
+                Notes
+            </h1>
+
+            <p>
+                Keep your academic notes in one place.
+            </p>
+
+        </div>
+
+        <button class="btn"
+                onclick="openNoteModal()">
+
+            + New Note
+
+        </button>
+
+    </div>
+
+
+    <div class="search">
+
+        🔍
+
+        <input id="noteSearch"
+               type="search"
+               placeholder="Search notes...">
+
+    </div>
+
+
+    <div id="notesGrid"
+         class="notes-grid">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STICKY
+===================================================== -->
+
+<section id="sticky"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <h1>
+                Sticky Notes
+            </h1>
+
+            <p>
+                Quick reminders, ideas and study tasks.
+            </p>
+
+        </div>
+
+        <button class="btn"
+                onclick="openStickyModal()">
+
+            + Sticky Note
+
+        </button>
+
+    </div>
+
+
+    <div id="stickyGrid"
+         class="sticky-grid">
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SETTINGS
+===================================================== -->
+
+<section id="settings"
+         class="page">
+
+    <div class="page-heading">
+
+        <div>
+
+            <h1>
+                Settings
+            </h1>
+
+            <p>
+                Customize your StudyPad experience.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="card settings-card">
+
+        <div class="card-header">
+
+            <h2>
+                Appearance
+            </h2>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Dark Mode
+                </strong>
+
+                <small>
+                    Use the StudyPad dark interface.
+                </small>
+
+            </div>
+
+            <div id="darkToggle"
+                 class="toggle on"
+                 onclick="toggleDarkMode()">
+            </div>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Animated Background
+                </strong>
+
+                <small>
+                    Subtle ambient effects.
+                </small>
+
+            </div>
+
+            <div id="animationToggle"
+                 class="toggle on"
+                 onclick="toggleAnimations()">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card settings-card">
+
+        <div class="card-header">
+
+            <h2>
+                Reminders
+            </h2>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Assessment Notifications
+                </strong>
+
+                <small>
+                    Receive deadline reminders.
+                </small>
+
+            </div>
+
+            <div id="notificationToggle"
+                 class="toggle"
+                 onclick="requestNotifications()">
+            </div>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Female Voice Reminders
+                </strong>
+
+                <small>
+                    Read reminders aloud using a female
+                    system voice when available.
+                </small>
+
+            </div>
+
+            <div id="voiceToggle"
+                 class="toggle on"
+                 onclick="toggleVoice()">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card settings-card">
+
+        <div class="card-header">
+
+            <h2>
+                Data
+            </h2>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Export StudyPad Data
+                </strong>
+
+                <small>
+                    Create a backup of your assessments,
+                    notes, timetable and settings.
+                </small>
+
+            </div>
+
+            <button class="btn secondary"
+                    onclick="exportData()">
+
+                Export
+
+            </button>
+
+        </div>
+
+
+        <div class="setting-row">
+
+            <div class="setting-info">
+
+                <strong>
+                    Import StudyPad Data
+                </strong>
+
+                <small>
+                    Restore a previous StudyPad backup.
+                </small>
+
+            </div>
+
+            <label class="btn secondary"
+                   style="cursor:pointer">
+
+                Import
+
+                <input id="importInput"
+                       type="file"
+                       accept=".json"
+                       hidden>
+
+            </label>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section id="about"
+         class="page">
+
+    <div class="about">
+
+        <div class="about-logo">
+            S
+        </div>
+
+        <h1>
+            StudyPad
+        </h1>
+
+        <div class="about-sub">
+            Your academic workspace.
+        </div>
+
+
+        <div class="about-box">
+
+            <div class="about-line">
+
+                <span>
+                    Developed by
+                </span>
+
+                Joheliv Labs
+
+            </div>
+
+
+            <div class="about-line">
+
+                <span>
+                    Creative Labs
+                </span>
+
+                Jason's Labs
+
+            </div>
+
+
+            <div class="about-line">
+
+                <span>
+                    Location
+                </span>
+
+                South Africa
+
+            </div>
+
+
+            <div class="about-line">
+
+                <span>
+                    Year
+                </span>
+
+                2026
+
+            </div>
+
+
+            <div class="about-line">
+
+                <span>
+                    Version
+                </span>
+
+                StudyPad 1.0.0
+
+            </div>
+
+        </div>
+
+
+        <p style="
+            color:var(--muted);
+            line-height:1.7;
+            margin-top:25px;
+        ">
+
+            StudyPad helps students organize assessments,
+            deadlines, timetables, notes and daily academic
+            tasks in one focused workspace.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+</div>
+
+
+<!-- =====================================================
+     ASSESSMENT MODAL
+===================================================== -->
+
+<div id="assessmentModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div>
+
+                <h2 id="assessmentModalTitle">
+                    New Assessment
+                </h2>
+
+                <p style="
+                    color:var(--muted);
+                    font-size:12px;
+                    margin-top:4px;
+                ">
+                    Save it and your countdown starts immediately.
+                </p>
+
+            </div>
+
+            <button class="close"
+                    onclick="closeModal('assessmentModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="assessmentForm">
+
+            <input id="assessmentId"
+                   type="hidden">
+
+
+            <div class="form-grid">
+
+
+                <div class="field full">
+
+                    <label>
+                        Assessment Name
+                    </label>
+
+                    <input id="assessmentName"
+                           required
+                           placeholder="HSH 321 Assignment">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Due Date
+                    </label>
+
+                    <input id="assessmentDate"
+                           type="date"
+                           required>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Due Time
+                    </label>
+
+                    <input id="assessmentTime"
+                           type="time"
+                           value="23:59"
+                           required>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Course / Subject
+                    </label>
+
+                    <input id="assessmentCourse"
+                           placeholder="HSH 321">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Priority
+                    </label>
+
+                    <select id="assessmentPriority">
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option value="medium"
+                                selected>
+                            Medium
+                        </option>
+
+                        <option value="low">
+                            Low
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Description
+                    </label>
+
+                    <textarea id="assessmentDescription"
+                              placeholder="Instructions, requirements, study plan..."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button type="button"
+                        class="btn secondary"
+                        onclick="closeModal('assessmentModal')">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        class="btn">
+
+                    Save Assessment
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     NOTE MODAL
+===================================================== -->
+
+<div id="noteModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>
+                New Note
+            </h2>
+
+            <button class="close"
+                    onclick="closeModal('noteModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="noteForm">
+
+            <input id="noteId"
+                   type="hidden">
+
+
+            <div class="form-grid">
+
+                <div class="field full">
+
+                    <label>
+                        Title
+                    </label>
+
+                    <input id="noteTitle"
+                           required
+                           placeholder="Lecture Notes">
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Notes
+                    </label>
+
+                    <textarea id="noteContent"
+                              required
+                              placeholder="Write your notes here..."></textarea>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button type="button"
+                        class="btn secondary"
+                        onclick="closeModal('noteModal')">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn">
+                    Save Note
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     STICKY MODAL
+===================================================== -->
+
+<div id="stickyModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>
+                Sticky Note
+            </h2>
+
+            <button class="close"
+                    onclick="closeModal('stickyModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="stickyForm">
+
+            <div class="field">
+
+                <label>
+                    Title
+                </label>
+
+                <input id="stickyTitle"
+                       required
+                       placeholder="Remember">
+
+            </div>
+
+
+            <div class="field"
+                 style="margin-top:14px">
+
+                <label>
+                    Message
+                </label>
+
+                <textarea id="stickyContent"
+                          required
+                          placeholder="Don't forget..."></textarea>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button type="button"
+                        class="btn secondary"
+                        onclick="closeModal('stickyModal')">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn">
+                    Save Sticky
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     SCHEDULE MODAL
+===================================================== -->
+
+<div id="scheduleModal"
+     class="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2>
+                Add Class
+            </h2>
+
+            <button class="close"
+                    onclick="closeModal('scheduleModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="scheduleForm">
+
+            <div class="form-grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Day
+                    </label>
+
+                    <select id="classDay">
+
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Start Time
+                    </label>
+
+                    <input id="classTime"
+                           type="time"
+                           required>
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Subject
+                    </label>
+
+                    <input id="className"
+                           required
+                           placeholder="HSH 321">
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Room / Lecturer
+                    </label>
+
+                    <input id="classRoom"
+                           placeholder="Room 4">
+
+                </div>
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button type="button"
+                        class="btn secondary"
+                        onclick="closeModal('scheduleModal')">
+
+                    Cancel
+
+                </button>
+
+                <button class="btn">
+
+                    Save Class
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="toast"
+     class="toast">
+</div>
+
+
+<script>
+
+/* =========================================================
+   STUDYPAD APPLICATION
+========================================================= */
+
+
+/* =========================================================
+   DATABASE
+   IndexedDB is used as the local DB.
+========================================================= */
+
+const DB_NAME = "StudyPadDatabase";
+
+const DB_VERSION = 1;
+
+let db;
+
+
+/* =========================================================
+   STATE
+========================================================= */
+
+const state = {
+
+    assessments: [],
+
+    notes: [],
+
+    sticky: [],
+
+    schedule: [],
+
+    settings: {
+
+        dark: true,
+
+        animations: true,
+
+        notifications: false,
+
+        voice: true
+
+    },
+
+    lastReminderCheck: "",
+
+    editingAssessment: null
+
+};
+
+
+/* =========================================================
+   OPEN DATABASE
+========================================================= */
+
+function openDatabase() {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const request =
+                indexedDB.open(
+                    DB_NAME,
+                    DB_VERSION
+                );
+
+
+            request.onupgradeneeded =
+                event => {
+
+                    const database =
+                        event.target.result;
+
+
+                    if (!database.objectStoreNames.contains("assessments")) {
+
+                        database.createObjectStore(
+                            "assessments",
+                            {
+                                keyPath: "id"
+                            }
+                        );
+
+                    }
+
+
+                    if (!database.objectStoreNames.contains("notes")) {
+
+                        database.createObjectStore(
+                            "notes",
+                            {
+                                keyPath: "id"
+                            }
+                        );
+
+                    }
+
+
+                    if (!database.objectStoreNames.contains("sticky")) {
+
+                        database.createObjectStore(
+                            "sticky",
+                            {
+                                keyPath: "id"
+                            }
+                        );
+
+                    }
+
+
+                    if (!database.objectStoreNames.contains("schedule")) {
+
+                        database.createObjectStore(
+                            "schedule",
+                            {
+                                keyPath: "id"
+                            }
+                        );
+
+                    }
+
+
+                    if (!database.objectStoreNames.contains("settings")) {
+
+                        database.createObjectStore(
+                            "settings",
+                            {
+                                keyPath: "id"
+                            }
+                        );
+
+                    }
+
+                };
+
+
+            request.onsuccess =
+                event => {
+
+                    db =
+                        event.target.result;
+
+                    resolve(db);
+
+                };
+
+
+            request.onerror =
+                () => reject(
+                    request.error
+                );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   DATABASE HELPERS
+========================================================= */
+
+function dbPut(store, value) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                db.transaction(
+                    store,
+                    "readwrite"
+                );
+
+            transaction
+                .objectStore(store)
+                .put(value);
+
+            transaction.oncomplete =
+                () => resolve();
+
+            transaction.onerror =
+                () => reject(
+                    transaction.error
+                );
+
+        }
+    );
+
+}
+
+
+function dbDelete(store, id) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                db.transaction(
+                    store,
+                    "readwrite"
+                );
+
+            transaction
+                .objectStore(store)
+                .delete(id);
+
+            transaction.oncomplete =
+                () => resolve();
+
+            transaction.onerror =
+                () => reject(
+                    transaction.error
+                );
+
+        }
+    );
+
+}
+
+
+function dbGetAll(store) {
+
+    return new Promise(
+        (resolve, reject) => {
+
+            const transaction =
+                db.transaction(
+                    store,
+                    "readonly"
+                );
+
+            const request =
+                transaction
+                    .objectStore(store)
+                    .getAll();
+
+            request.onsuccess =
+                () => resolve(
+                    request.result
+                );
+
+            request.onerror =
+                () => reject(
+                    request.error
+                );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   LOAD DATA
+========================================================= */
+
+async function loadData() {
+
+    state.assessments =
+        await dbGetAll("assessments");
+
+    state.notes =
+        await dbGetAll("notes");
+
+    state.sticky =
+        await dbGetAll("sticky");
+
+    state.schedule =
+        await dbGetAll("schedule");
+
+
+    const savedSettings =
+        await dbGetAll("settings");
+
+
+    const settings =
+        savedSettings.find(
+            item => item.id === "settings"
+        );
+
+
+    if (settings) {
+
+        state.settings = {
+            ...state.settings,
+            ...settings.value
+        };
+
+    }
+
+
+    applySettings();
+
+    renderAll();
+
+}
+
+
+/* =========================================================
+   SAVE SETTINGS
+========================================================= */
+
+async function saveSettings() {
+
+    await dbPut(
+        "settings",
+        {
+            id: "settings",
+            value: state.settings
+        }
+    );
+
+}
+
+
+/* =========================================================
+   PAGE NAVIGATION
+========================================================= */
+
+const pageTitles = {
+
+    dashboard:
+        "Dashboard",
+
+    assessments:
+        "Assessments",
+
+    timetable:
+        "Timetable",
+
+    notes:
+        "Notes",
+
+    sticky:
+        "Sticky Notes",
+
+    settings:
+        "Settings",
+
+    about:
+        "About"
+
+};
+
+
+function openPage(page) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const selected =
+        document.getElementById(page);
+
+
+    if (selected) {
+
+        selected.classList.add(
+            "active"
+        );
+
+    }
+
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(item => {
+
+            item.classList.toggle(
+                "active",
+                item.dataset.page === page
+            );
+
+        });
+
+
+    document
+        .getElementById("headerTitle")
+        .textContent =
+        pageTitles[page] || "StudyPad";
+
+
+    document
+        .querySelector(".content")
+        .scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    document
+        .getElementById("sidebar")
+        .classList.remove("open");
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+function toggleSidebar() {
+
+    document
+        .getElementById("sidebar")
+        .classList.toggle("open");
+
+}
+
+
+/* =========================================================
+   LIVE CLOCK
+========================================================= */
+
+function updateClock() {
+
+    const now =
+        new Date();
+
+
+    const time =
+        now.toLocaleTimeString(
+            undefined,
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+
+    const date =
+        now.toLocaleDateString(
+            undefined,
+            {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            }
+        );
+
+
+    document
+        .getElementById("liveTime")
+        .textContent =
+        time;
+
+
+    document
+        .getElementById("headerDate")
+        .textContent =
+        date;
+
+
+    const hour =
+        now.getHours();
+
+
+    let greeting;
+
+
+    if (hour < 12)
+        greeting = "Good morning.";
+
+    else if (hour < 17)
+        greeting = "Good afternoon.";
+
+    else
+        greeting = "Good evening.";
+
+
+    document
+        .getElementById("welcomeText")
+        .textContent =
+        greeting;
+
+}
+
+
+setInterval(
+    updateClock,
+    1000
+);
+
+updateClock();
+
+
+/* =========================================================
+   MODALS
+========================================================= */
+
+function openModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.add("open");
+
+}
+
+
+function closeModal(id) {
+
+    document
+        .getElementById(id)
+        .classList.remove("open");
+
+}
+
+
+/* =========================================================
+   ASSESSMENT
+========================================================= */
+
+function openAssessmentModal(id = null) {
+
+    const form =
+        document.getElementById(
+            "assessmentForm"
+        );
+
+    form.reset();
+
+
+    document
+        .getElementById(
+            "assessmentId"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "assessmentTime"
+        )
+        .value = "23:59";
+
+
+    document
+        .getElementById(
+            "assessmentModalTitle"
+        )
+        .textContent =
+        "New Assessment";
+
+
+    if (id) {
+
+        const assessment =
+            state.assessments.find(
+                item =>
+                    item.id === id
+            );
+
+
+        if (!assessment)
+            return;
+
+
+        state.editingAssessment =
+            assessment;
+
+
+        document
+            .getElementById(
+                "assessmentModalTitle"
+            )
+            .textContent =
+            "Edit Assessment";
+
+
+        document
+            .getElementById(
+                "assessmentId"
+            )
+            .value =
+            assessment.id;
+
+
+        document
+            .getElementById(
+                "assessmentName"
+            )
+            .value =
+            assessment.name;
+
+
+        document
+            .getElementById(
+                "assessmentDate"
+            )
+            .value =
+            assessment.date;
+
+
+        document
+            .getElementById(
+                "assessmentTime"
+            )
+            .value =
+            assessment.time;
+
+
+        document
+            .getElementById(
+                "assessmentCourse"
+            )
+            .value =
+            assessment.course;
+
+
+        document
+            .getElementById(
+                "assessmentPriority"
+            )
+            .value =
+            assessment.priority;
+
+
+        document
+            .getElementById(
+                "assessmentDescription"
+            )
+            .value =
+            assessment.description;
+
+    }
+
+
+    else {
+
+        state.editingAssessment =
+            null;
+
+
+        const tomorrow =
+            new Date();
+
+        tomorrow.setDate(
+            tomorrow.getDate() + 1
+        );
+
+
+        document
+            .getElementById(
+                "assessmentDate"
+            )
+            .value =
+            formatDateInput(tomorrow);
+
+    }
+
+
+    openModal(
+        "assessmentModal"
+    );
+
+}
+
+
+/* =========================================================
+   ASSESSMENT FORM
+========================================================= */
+
+document
+    .getElementById("assessmentForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const id =
+                document
+                    .getElementById(
+                        "assessmentId"
+                    )
+                    .value
+                ||
+                crypto.randomUUID();
+
+
+            const assessment = {
+
+                id,
+
+                name:
+                    document
+                        .getElementById(
+                            "assessmentName"
+                        )
+                        .value
+                        .trim(),
+
+                date:
+                    document
+                        .getElementById(
+                            "assessmentDate"
+                        )
+                        .value,
+
+                time:
+                    document
+                        .getElementById(
+                            "assessmentTime"
+                        )
+                        .value,
+
+                course:
+                    document
+                        .getElementById(
+                            "assessmentCourse"
+                        )
+                        .value
+                        .trim(),
+
+                priority:
+                    document
+                        .getElementById(
+                            "assessmentPriority"
+                        )
+                        .value,
+
+                description:
+                    document
+                        .getElementById(
+                            "assessmentDescription"
+                        )
+                        .value
+                        .trim(),
+
+                completed:
+                    state.editingAssessment
+                    ? state.editingAssessment.completed
+                    : false,
+
+                createdAt:
+                    state.editingAssessment
+                    ? state.editingAssessment.createdAt
+                    : new Date().toISOString()
+
+            };
+
+
+            await dbPut(
+                "assessments",
+                assessment
+            );
+
+
+            const index =
+                state.assessments.findIndex(
+                    item =>
+                        item.id === id
+                );
+
+
+            if (index >= 0)
+
+                state.assessments[index] =
+                    assessment;
+
+            else
+
+                state.assessments.push(
+                    assessment
+                );
+
+
+            closeModal(
+                "assessmentModal"
+            );
+
+
+            renderAll();
+
+
+            showToast(
+                "Assessment saved. Countdown started."
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   ASSESSMENT STATUS
+========================================================= */
+
+function assessmentDateTime(a) {
+
+    return new Date(
+        `${a.date}T${a.time || "23:59"}`
+    );
+
+}
+
+
+function isOverdue(a) {
+
+    return (
+        !a.completed &&
+        assessmentDateTime(a) < new Date()
+    );
+
+}
+
+
+function isDueSoon(a) {
+
+    if (a.completed)
+        return false;
+
+
+    const now =
+        new Date();
+
+    const due =
+        assessmentDateTime(a);
+
+
+    const hours =
+        (due - now) /
+        3600000;
+
+
+    return (
+        hours > 0 &&
+        hours <= 48
+    );
+
+}
+
+
+/* =========================================================
+   COUNTDOWN
+========================================================= */
+
+function countdownParts(date) {
+
+    const now =
+        new Date();
+
+    const diff =
+        date - now;
+
+
+    if (diff <= 0) {
+
+        return {
+
+            expired: true,
+
+            days: 0,
+            hours: 0,
+            minutes: 0,
+            seconds: 0
+
+        };
+
+    }
+
+
+    let seconds =
+        Math.floor(
+            diff / 1000
+        );
+
+
+    const days =
+        Math.floor(
+            seconds / 86400
+        );
+
+
+    seconds %=
+        86400;
+
+
+    const hours =
+        Math.floor(
+            seconds / 3600
+        );
+
+
+    seconds %=
+        3600;
+
+
+    const minutes =
+        Math.floor(
+            seconds / 60
+        );
+
+
+    seconds %=
+        60;
+
+
+    return {
+
+        expired: false,
+
+        days,
+        hours,
+        minutes,
+        seconds
+
+    };
+
+}
+
+
+/* =========================================================
+   COUNTDOWN HTML
+========================================================= */
+
+function countdownHTML(a) {
+
+    if (a.completed) {
+
+        return `
+
+            <div class="countdown">
+
+                <div class="time-box">
+
+                    <strong>✓</strong>
+
+                    <small>Done</small>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    const parts =
+        countdownParts(
+            assessmentDateTime(a)
+        );
+
+
+    if (parts.expired) {
+
+        return `
+
+            <div class="countdown">
+
+                <div class="time-box">
+
+                    <strong>!</strong>
+
+                    <small>Overdue</small>
+
+                </div>
+
+            </div>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="countdown">
+
+            <div class="time-box">
+
+                <strong>${parts.days}</strong>
+
+                <small>Days</small>
+
+            </div>
+
+            <div class="time-box">
+
+                <strong>${String(parts.hours).padStart(2,"0")}</strong>
+
+                <small>Hours</small>
+
+            </div>
+
+            <div class="time-box">
+
+                <strong>${String(parts.minutes).padStart(2,"0")}</strong>
+
+                <small>Min</small>
+
+            </div>
+
+            <div class="time-box">
+
+                <strong>${String(parts.seconds).padStart(2,"0")}</strong>
+
+                <small>Sec</small>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   ASSESSMENT CARD
+========================================================= */
+
+function assessmentCard(a) {
+
+    const overdue =
+        isOverdue(a);
+
+
+    const status =
+        a.completed
+        ? "completed"
+        : overdue
+            ? "overdue"
+            : "pending";
+
+
+    const statusText =
+        a.completed
+        ? "Completed"
+        : overdue
+            ? "Overdue"
+            : "Pending";
+
+
+    return `
+
+        <div class="assessment-card">
+
+            <div class="assessment-top">
+
+                <div>
+
+                    <div class="assessment-name">
+
+                        ${escapeHtml(a.name)}
+
+                    </div>
+
+                    <div class="assessment-meta">
+
+                        ${
+                            a.course
+                            ? `<span>${escapeHtml(a.course)}</span>`
+                            : ""
+                        }
+
+                        <span>
+                            ${formatDateDisplay(a.date)}
+                            ·
+                            ${a.time}
+                        </span>
+
+                        <span class="badge ${status}">
+                            ${statusText}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            ${countdownHTML(a)}
+
+
+            <div class="assessment-actions">
+
+                ${
+                    !a.completed
+                    ?
+                    `
+                    <button
+                        class="small-btn"
+                        onclick="completeAssessment('${a.id}')">
+                        ✓ Complete
+                    </button>
+                    `
+                    :
+                    `
+                    <button
+                        class="small-btn"
+                        onclick="uncompleteAssessment('${a.id}')">
+                        ↩ Restore
+                    </button>
+                    `
+                }
+
+
+                <button
+                    class="small-btn"
+                    onclick="openAssessmentModal('${a.id}')">
+                    Edit
+                </button>
+
+
+                <button
+                    class="small-btn"
+                    onclick="deleteAssessment('${a.id}')">
+                    Delete
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RENDER ASSESSMENTS
+========================================================= */
+
+function renderAssessments() {
+
+    const container =
+        document.getElementById(
+            "assessmentList"
+        );
+
+
+    const query =
+        (
+            document
+                .getElementById(
+                    "assessmentSearch"
+                )
+                ?.value || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    let list =
+        [...state.assessments];
+
+
+    if (query) {
+
+        list =
+            list.filter(a =>
+                a.name
+                    .toLowerCase()
+                    .includes(query)
+                ||
+                a.course
+                    .toLowerCase()
+                    .includes(query)
+            );
+
+    }
+
+
+    list.sort(
+        (a,b) =>
+            assessmentDateTime(a) -
+            assessmentDateTime(b)
+    );
+
+
+    if (!list.length) {
+
+        container.innerHTML = `
+
+            <div class="card empty">
+
+                <div style="
+                    font-size:40px;
+                    margin-bottom:10px;
+                ">
+                    ✓
+                </div>
+
+                <h3>
+                    No assessments yet
+                </h3>
+
+                <p style="
+                    color:var(--muted);
+                    margin-top:6px;
+                ">
+                    Add your first assessment.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        list.map(
+            assessmentCard
+        ).join("");
+
+}
+
+
+/* =========================================================
+   COMPLETE
+========================================================= */
+
+async function completeAssessment(id) {
+
+    const a =
+        state.assessments.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (!a)
+        return;
+
+
+    a.completed =
+        true;
+
+
+    a.completedAt =
+        new Date().toISOString();
+
+
+    await dbPut(
+        "assessments",
+        a
+    );
+
+
+    renderAll();
+
+    showToast(
+        "Assessment marked completed."
+    );
+
+}
+
+
+/* =========================================================
+   RESTORE
+========================================================= */
+
+async function uncompleteAssessment(id) {
+
+    const a =
+        state.assessments.find(
+            item =>
+                item.id === id
+        );
+
+
+    if (!a)
+        return;
+
+
+    a.completed =
+        false;
+
+
+    delete a.completedAt;
+
+
+    await dbPut(
+        "assessments",
+        a
+    );
+
+
+    renderAll();
+
+    showToast(
+        "Assessment restored."
+    );
+
+}
+
+
+/* =========================================================
+   DELETE
+========================================================= */
+
+async function deleteAssessment(id) {
+
+    if (
+        !confirm(
+            "Delete this assessment?"
+        )
+    )
+        return;
+
+
+    await dbDelete(
+        "assessments",
+        id
+    );
+
+
+    state.assessments =
+        state.assessments.filter(
+            a =>
+                a.id !== id
+        );
+
+
+    renderAll();
+
+    showToast(
+        "Assessment deleted."
+    );
+
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+function openNoteModal(id = null) {
+
+    document
+        .getElementById(
+            "noteForm"
+        )
+        .reset();
+
+
+    document
+        .getElementById(
+            "noteId"
+        )
+        .value = "";
+
+
+    if (id) {
+
+        const note =
+            state.notes.find(
+                n =>
+                    n.id === id
+            );
+
+
+        if (!note)
+            return;
+
+
+        document
+            .getElementById(
+                "noteId"
+            )
+            .value =
+            note.id;
+
+
+        document
+            .getElementById(
+                "noteTitle"
+            )
+            .value =
+            note.title;
+
+
+        document
+            .getElementById(
+                "noteContent"
+            )
+            .value =
+            note.content;
+
+    }
+
+
+    openModal(
+        "noteModal"
+    );
+
+}
+
+
+document
+    .getElementById("noteForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const id =
+                document
+                    .getElementById(
+                        "noteId"
+                    )
+                    .value
+                ||
+                crypto.randomUUID();
+
+
+            const old =
+                state.notes.find(
+                    n =>
+                        n.id === id
+                );
+
+
+            const note = {
+
+                id,
+
+                title:
+                    document
+                        .getElementById(
+                            "noteTitle"
+                        )
+                        .value
+                        .trim(),
+
+                content:
+                    document
+                        .getElementById(
+                            "noteContent"
+                        )
+                        .value,
+
+                createdAt:
+                    old
+                    ? old.createdAt
+                    : new Date().toISOString(),
+
+                updatedAt:
+                    new Date().toISOString()
+
+            };
+
+
+            await dbPut(
+                "notes",
+                note
+            );
+
+
+            const index =
+                state.notes.findIndex(
+                    n =>
+                        n.id === id
+                );
+
+
+            if (index >= 0)
+
+                state.notes[index] =
+                    note;
+
+            else
+
+                state.notes.unshift(
+                    note
+                );
+
+
+            closeModal(
+                "noteModal"
+            );
+
+
+            renderNotes();
+
+            showToast(
+                "Note saved."
+            );
+
+        }
+    );
+
+
+function renderNotes() {
+
+    const grid =
+        document.getElementById(
+            "notesGrid"
+        );
+
+
+    const query =
+        (
+            document
+                .getElementById(
+                    "noteSearch"
+                )
+                ?.value || ""
+        )
+        .toLowerCase();
+
+
+    const notes =
+        state.notes.filter(note =>
+            note.title
+                .toLowerCase()
+                .includes(query)
+            ||
+            note.content
+                .toLowerCase()
+                .includes(query)
+        );
+
+
+    if (!notes.length) {
+
+        grid.innerHTML = `
+
+            <div class="card">
+
+                <h3>
+                    No notes
+                </h3>
+
+                <p style="
+                    color:var(--muted);
+                    margin-top:7px;
+                ">
+                    Create your first study note.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        notes.map(note => `
+
+            <div class="note-card">
+
+                <div class="note-actions">
+
+                    <button
+                        class="small-btn"
+                        onclick="openNoteModal('${note.id}')">
+                        Edit
+                    </button>
+
+                    <button
+                        class="small-btn"
+                        onclick="deleteNote('${note.id}')">
+                        ×
+                    </button>
+
+                </div>
+
+
+                <h3>
+                    ${escapeHtml(note.title)}
+                </h3>
+
+
+                <p>
+                    ${escapeHtml(note.content)}
+                </p>
+
+
+                <div class="note-date">
+
+                    ${formatDateTime(note.updatedAt)}
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+
+async function deleteNote(id) {
+
+    if (
+        !confirm(
+            "Delete this note?"
+        )
+    )
+        return;
+
+
+    await dbDelete(
+        "notes",
+        id
+    );
+
+
+    state.notes =
+        state.notes.filter(
+            n =>
+                n.id !== id
+        );
+
+
+    renderNotes();
+
+    showToast(
+        "Note deleted."
+    );
+
+}
+
+
+/* =========================================================
+   STICKY NOTES
+========================================================= */
+
+function openStickyModal() {
+
+    document
+        .getElementById(
+            "stickyForm"
+        )
+        .reset();
+
+    openModal(
+        "stickyModal"
+    );
+
+}
+
+
+document
+    .getElementById("stickyForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const sticky = {
+
+                id:
+                    crypto.randomUUID(),
+
+                title:
+                    document
+                        .getElementById(
+                            "stickyTitle"
+                        )
+                        .value
+                        .trim(),
+
+                content:
+                    document
+                        .getElementById(
+                            "stickyContent"
+                        )
+                        .value,
+
+                createdAt:
+                    new Date().toISOString(),
+
+                rotation:
+                    (Math.random() * 2 - 1)
+                    .toFixed(2)
+
+            };
+
+
+            await dbPut(
+                "sticky",
+                sticky
+            );
+
+
+            state.sticky.unshift(
+                sticky
+            );
+
+
+            closeModal(
+                "stickyModal"
+            );
+
+
+            renderSticky();
+
+            showToast(
+                "Sticky note created."
+            );
+
+        }
+    );
+
+
+function renderSticky() {
+
+    const grid =
+        document.getElementById(
+            "stickyGrid"
+        );
+
+
+    if (!state.sticky.length) {
+
+        grid.innerHTML = `
+
+            <div class="card">
+
+                <h3>
+                    No sticky notes
+                </h3>
+
+                <p style="
+                    color:var(--muted);
+                    margin-top:7px;
+                ">
+                    Add quick reminders here.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    grid.innerHTML =
+        state.sticky.map(note => `
+
+            <div
+                class="sticky"
+                style="--rotation:${note.rotation}deg">
+
+                <button
+                    onclick="deleteSticky('${note.id}')">
+                    ×
+                </button>
+
+                <h3>
+                    ${escapeHtml(note.title)}
+                </h3>
+
+                <p>
+                    ${escapeHtml(note.content)}
+                </p>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+
+async function deleteSticky(id) {
+
+    await dbDelete(
+        "sticky",
+        id
+    );
+
+
+    state.sticky =
+        state.sticky.filter(
+            n =>
+                n.id !== id
+        );
+
+
+    renderSticky();
+
+    showToast(
+        "Sticky note removed."
+    );
+
+}
+
+
+/* =========================================================
+   TIMETABLE
+========================================================= */
+
+function openScheduleModal() {
+
+    document
+        .getElementById(
+            "scheduleForm"
+        )
+        .reset();
+
+    openModal(
+        "scheduleModal"
+    );
+
+}
+
+
+document
+    .getElementById("scheduleForm")
+    .addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const item = {
+
+                id:
+                    crypto.randomUUID(),
+
+                day:
+                    document
+                        .getElementById(
+                            "classDay"
+                        )
+                        .value,
+
+                time:
+                    document
+                        .getElementById(
+                            "classTime"
+                        )
+                        .value,
+
+                name:
+                    document
+                        .getElementById(
+                            "className"
+                        )
+                        .value
+                        .trim(),
+
+                room:
+                    document
+                        .getElementById(
+                            "classRoom"
+                        )
+                        .value
+                        .trim()
+
+            };
+
+
+            await dbPut(
+                "schedule",
+                item
+            );
+
+
+            state.schedule.push(
+                item
+            );
+
+
+            closeModal(
+                "scheduleModal"
+            );
+
+
+            renderSchedule();
+
+            renderDashboard();
+
+            showToast(
+                "Class added to timetable."
+            );
+
+        }
+    );
+
+
+const days = [
+
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday"
+
+];
+
+
+function renderSchedule() {
+
+    const container =
+        document.getElementById(
+            "schedule"
+        );
+
+
+    container.innerHTML =
+        days.map(day => {
+
+            const items =
+                state.schedule
+                    .filter(
+                        item =>
+                            item.day === day
+                    )
+                    .sort(
+                        (a,b) =>
+                            a.time.localeCompare(
+                                b.time
+                            )
+                    );
+
+
+            return `
+
+                <div class="day-column">
+
+                    <div class="day-title">
+                        ${day}
+                    </div>
+
+                    ${
+                        items.length
+
+                        ?
+
+                        items.map(item => `
+
+                            <div class="class-item">
+
+                                <div class="class-time">
+
+                                    ${item.time}
+
+                                </div>
+
+                                <div class="class-name">
+
+                                    ${escapeHtml(item.name)}
+
+                                </div>
+
+                                <div class="class-room">
+
+                                    ${escapeHtml(item.room || "")}
+
+                                </div>
+
+                            </div>
+
+                        `).join("")
+
+                        :
+
+                        `<div style="
+                            color:var(--muted);
+                            font-size:10px;
+                            padding:8px;
+                        ">
+                            No classes
+                        </div>`
+
+                    }
+
+                </div>
+
+            `;
+
+        }).join("");
+
+}
+
+
+/* =========================================================
+   TODAY SCHEDULE
+========================================================= */
+
+function renderTodaySchedule() {
+
+    const today =
+        new Date();
+
+    const index =
+        today.getDay();
+
+
+    const todayName =
+        index === 0
+        ? "Sunday"
+        : days[index - 1];
+
+
+    document
+        .getElementById(
+            "todayName"
+        )
+        .textContent =
+        todayName;
+
+
+    const items =
+        state.schedule
+            .filter(
+                item =>
+                    item.day === todayName
+            )
+            .sort(
+                (a,b) =>
+                    a.time.localeCompare(
+                        b.time
+                    )
+            );
+
+
+    const container =
+        document.getElementById(
+            "todaySchedule"
+        );
+
+
+    if (!items.length) {
+
+        container.innerHTML = `
+
+            <div style="
+                color:var(--muted);
+                padding:10px 0;
+            ">
+
+                No classes scheduled for today.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        items.map(item => `
+
+            <div class="assessment-card">
+
+                <strong>
+                    ${escapeHtml(item.name)}
+                </strong>
+
+                <div class="assessment-meta">
+
+                    <span>
+                        ${item.time}
+                    </span>
+
+                    <span>
+                        ${escapeHtml(item.room || "")}
+                    </span>
+
+                </div>
+
+            </div>
+
+        `)
+        .join("");
+
+}
+
+
+/* =========================================================
+   DASHBOARD ASSESSMENTS
+========================================================= */
+
+function renderDashboardAssessments() {
+
+    const container =
+        document.getElementById(
+            "dashboardAssessments"
+        );
+
+
+    const list =
+        state.assessments
+            .filter(
+                a =>
+                    !a.completed
+            )
+            .sort(
+                (a,b) =>
+                    assessmentDateTime(a) -
+                    assessmentDateTime(b)
+            )
+            .slice(0,5);
+
+
+    if (!list.length) {
+
+        container.innerHTML = `
+
+            <div style="
+                padding:25px 5px;
+                color:var(--muted);
+                text-align:center;
+            ">
+
+                🎓<br><br>
+
+                You're all caught up.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        list.map(
+            assessmentCard
+        ).join("");
+
+}
+
+
+/* =========================================================
+   DASHBOARD STATS
+========================================================= */
+
+function renderStats() {
+
+    const pending =
+        state.assessments.filter(
+            a =>
+                !a.completed &&
+                !isOverdue(a)
+        ).length;
+
+
+    const completed =
+        state.assessments.filter(
+            a =>
+                a.completed
+        ).length;
+
+
+    const soon =
+        state.assessments.filter(
+            a =>
+                isDueSoon(a)
+        ).length;
+
+
+    const overdue =
+        state.assessments.filter(
+            a =>
+                isOverdue(a)
+        ).length;
+
+
+    document
+        .getElementById(
+            "pendingCount"
+        )
+        .textContent =
+        pending;
+
+
+    document
+        .getElementById(
+            "completedCount"
+        )
+        .textContent =
+        completed;
+
+
+    document
+        .getElementById(
+            "dueSoonCount"
+        )
+        .textContent =
+        soon;
+
+
+    document
+        .getElementById(
+            "overdueCount"
+        )
+        .textContent =
+        overdue;
+
+}
+
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+function renderCalendar() {
+
+    const now =
+        new Date();
+
+
+    const year =
+        now.getFullYear();
+
+    const month =
+        now.getMonth();
+
+
+    document
+        .getElementById(
+            "calendarMonth"
+        )
+        .textContent =
+        now.toLocaleDateString(
+            undefined,
+            {
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+
+    const container =
+        document.getElementById(
+            "calendar"
+        );
+
+
+    const headers =
+        [
+            "M",
+            "T",
+            "W",
+            "T",
+            "F",
+            "S",
+            "S"
+        ];
+
+
+    let html =
+        headers.map(
+            d =>
+                `<div class="calendar-day head">${d}</div>`
+        ).join("");
+
+
+    const first =
+        new Date(
+            year,
+            month,
+            1
+        );
+
+
+    let start =
+        first.getDay();
+
+    start =
+        start === 0
+        ? 6
+        : start - 1;
+
+
+    for (
+        let i = 0;
+        i < start;
+        i++
+    ) {
+
+        html +=
+            `<div></div>`;
+
+    }
+
+
+    const last =
+        new Date(
+            year,
+            month + 1,
+            0
+        ).getDate();
+
+
+    for (
+        let day = 1;
+        day <= last;
+        day++
+    ) {
+
+        const date =
+            new Date(
+                year,
+                month,
+                day
+            );
+
+
+        const dateString =
+            formatDateInput(
+                date
+            );
+
+
+        const isToday =
+            day === now.getDate();
+
+
+        const deadline =
+            state.assessments.some(
+                a =>
+                    a.date ===
+                    dateString
+            );
+
+
+        html += `
+
+            <div class="
+                calendar-day
+                ${isToday ? "today" : ""}
+                ${deadline ? "deadline" : ""}
+            ">
+
+                ${day}
+
+            </div>
+
+        `;
+
+    }
+
+
+    container.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+function applySettings() {
+
+    document.body.classList.toggle(
+        "light",
+        !state.settings.dark
+    );
+
+
+    document
+        .getElementById(
+            "darkToggle"
+        )
+        .classList.toggle(
+            "on",
+            state.settings.dark
+        );
+
+
+    document
+        .getElementById(
+            "animationToggle"
+        )
+        .classList.toggle(
+            "on",
+            state.settings.animations
+        );
+
+
+    document
+        .getElementById(
+            "voiceToggle"
+        )
+        .classList.toggle(
+            "on",
+            state.settings.voice
+        );
+
+
+    document
+        .getElementById(
+            "notificationToggle"
+        )
+        .classList.toggle(
+            "on",
+            state.settings.notifications
+        );
+
+}
+
+
+async function toggleDarkMode() {
+
+    state.settings.dark =
+        !state.settings.dark;
+
+    applySettings();
+
+    await saveSettings();
+
+}
+
+
+async function toggleAnimations() {
+
+    state.settings.animations =
+        !state.settings.animations;
+
+    applySettings();
+
+    await saveSettings();
+
+}
+
+
+async function toggleVoice() {
+
+    state.settings.voice =
+        !state.settings.voice;
+
+    applySettings();
+
+    await saveSettings();
+
+    showToast(
+        state.settings.voice
+        ? "Voice reminders enabled."
+        : "Voice reminders disabled."
+    );
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+async function requestNotifications() {
+
+    if (
+        !("Notification" in window)
+    ) {
+
+        showToast(
+            "This browser does not support notifications."
+        );
+
+        return;
+
+    }
+
+
+    const permission =
+        await Notification.requestPermission();
+
+
+    state.settings.notifications =
+        permission === "granted";
+
+
+    applySettings();
+
+    await saveSettings();
+
+
+    if (
+        permission === "granted"
+    ) {
+
+        showToast(
+            "StudyPad notifications enabled."
+        );
+
+
+        new Notification(
+            "StudyPad",
+            {
+                body:
+                    "Assessment reminders are now enabled."
+            }
+        );
+
+    }
+
+    else {
+
+        showToast(
+            "Notification permission was not granted."
+        );
+
+    }
+
+}
+
+
+/* =========================================================
+   FEMALE VOICE
+========================================================= */
+
+function getFemaleVoice() {
+
+    const voices =
+        speechSynthesis.getVoices();
+
+
+    if (!voices.length)
+        return null;
+
+
+    const preferredNames = [
+
+        "Samantha",
+        "Karen",
+        "Victoria",
+        "Zira",
+        "Microsoft Zira",
+        "Google UK English Female",
+        "Google US English Female",
+        "Female"
+
+    ];
+
+
+    for (
+        const name of preferredNames
+    ) {
+
+        const found =
+            voices.find(
+                voice =>
+                    voice.name
+                        .toLowerCase()
+                        .includes(
+                            name.toLowerCase()
+                        )
+            );
+
+
+        if (found)
+            return found;
+
+    }
+
+
+    const female =
+        voices.find(
+            voice =>
+                /female|woman|girl/i
+                    .test(
+                        voice.name
+                    )
+        );
+
+
+    return female || voices[0];
+
+}
+
+
+function speakReminder(message) {
+
+    if (!state.settings.voice)
+        return;
+
+
+    if (
+        !("speechSynthesis" in window)
+    )
+        return;
+
+
+    speechSynthesis.cancel();
+
+
+    const utterance =
+        new SpeechSynthesisUtterance(
+            message
+        );
+
+
+    const voice =
+        getFemaleVoice();
+
+
+    if (voice)
+        utterance.voice =
+            voice;
+
+
+    utterance.rate =
+        .92;
+
+    utterance.pitch =
+        1.08;
+
+    utterance.volume =
+        1;
+
+
+    speechSynthesis.speak(
+        utterance
+    );
+
+}
+
+
+if (
+    "speechSynthesis" in window
+) {
+
+    speechSynthesis.onvoiceschanged =
+        () => {
+
+            speechSynthesis.getVoices();
+
+        };
+
+}
+
+
+/* =========================================================
+   REMINDER SYSTEM
+========================================================= */
+
+function reminderKey(
+    assessment,
+    type
+) {
+
+    return `${assessment.id}_${assessment.date}_${type}`;
+
+}
+
+
+function alreadyReminded(key) {
+
+    return localStorage.getItem(
+        "studypad_reminder_" + key
+    ) === "yes";
+
+}
+
+
+function markReminded(key) {
+
+    localStorage.setItem(
+        "studypad_reminder_" + key,
+        "yes"
+    );
+
+}
+
+
+/* =========================================================
+   REMINDER CHECK
+========================================================= */
+
+function checkReminders() {
+
+    const now =
+        new Date();
+
+
+    const tomorrow =
+        new Date(now);
+
+
+    tomorrow.setDate(
+        tomorrow.getDate() + 1
+    );
+
+
+    const tomorrowString =
+        formatDateInput(
+            tomorrow
+        );
+
+
+    const currentHour =
+        now.getHours();
+
+    const currentMinute =
+        now.getMinutes();
+
+
+    state.assessments
+        .filter(
+            a =>
+                !a.completed &&
+                a.date === tomorrowString
+        )
+        .forEach(
+            assessment => {
+
+                /*
+                    10:00 reminder
+                */
+
+                if (
+                    currentHour === 10 &&
+                    currentMinute === 0
+                ) {
+
+                    const key =
+                        reminderKey(
+                            assessment,
+                            "morning"
+                        );
+
+
+                    if (
+                        !alreadyReminded(key)
+                    ) {
+
+                        const message =
+                            `Good morning. Don't forget your assessment ${assessment.name} is due tomorrow.`;
+
+                        sendReminder(
+                            "Good morning — StudyPad",
+                            message
+                        );
+
+                        speakReminder(
+                            message
+                        );
+
+                        markReminded(
+                            key
+                        );
+
+                    }
+
+                }
+
+
+                /*
+                    15:00 reminder
+                */
+
+                if (
+                    currentHour === 15 &&
+                    currentMinute === 0
+                ) {
+
+                    const key =
+                        reminderKey(
+                            assessment,
+                            "afternoon"
+                        );
+
+
+                    if (
+                        !alreadyReminded(key)
+                    ) {
+
+                        const message =
+                            `Good day. Don't forget your assessment ${assessment.name} is due tomorrow.`;
+
+                        sendReminder(
+                            "Good day — StudyPad",
+                            message
+                        );
+
+                        speakReminder(
+                            message
+                        );
+
+                        markReminded(
+                            key
+                        );
+
+                    }
+
+                }
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   SEND NOTIFICATION
+========================================================= */
+
+function sendReminder(
+    title,
+    message
+) {
+
+    if (
+        !state.settings.notifications
+    )
+        return;
+
+
+    if (
+        !("Notification" in window)
+    )
+        return;
+
+
+    if (
+        Notification.permission !==
+        "granted"
+    )
+        return;
+
+
+    new Notification(
+        title,
+        {
+            body:
+                message,
+
+            icon:
+                "",
+
+            tag:
+                "studypad-assessment"
+        }
+    );
+
+}
+
+
+/*
+    Check every 20 seconds.
+
+    This works while the page is active
+    and generally while the browser keeps
+    the page alive in the background.
+*/
+
+setInterval(
+    checkReminders,
+    20000
+);
+
+
+/* =========================================================
+   IMPORT / EXPORT
+========================================================= */
+
+async function exportData() {
+
+    const data = {
+
+        version:
+            "1.0.0",
+
+        exportedAt:
+            new Date().toISOString(),
+
+        assessments:
+            state.assessments,
+
+        notes:
+            state.notes,
+
+        sticky:
+            state.sticky,
+
+        schedule:
+            state.schedule,
+
+        settings:
+            state.settings
+
+    };
+
+
+    const blob =
+        new Blob(
+            [
+                JSON.stringify(
+                    data,
+                    null,
+                    2
+                )
+            ],
+            {
+                type:
+                    "application/json"
+            }
+        );
+
+
+    const url =
+        URL.createObjectURL(
+            blob
+        );
+
+
+    const a =
+        document.createElement(
+            "a"
+        );
+
+
+    a.href =
+        url;
+
+    a.download =
+        "studypad-backup.json";
+
+
+    a.click();
+
+
+    URL.revokeObjectURL(
+        url
+    );
+
+
+    showToast(
+        "StudyPad backup exported."
+    );
+
+}
+
+
+document
+    .getElementById(
+        "importInput"
+    )
+    .addEventListener(
+        "change",
+        async function() {
+
+            const file =
+                this.files[0];
+
+
+            if (!file)
+                return;
+
+
+            try {
+
+                const text =
+                    await file.text();
+
+
+                const data =
+                    JSON.parse(text);
+
+
+                if (
+                    Array.isArray(
+                        data.assessments
+                    )
+                ) {
+
+                    for (
+                        const item
+                        of data.assessments
+                    ) {
+
+                        await dbPut(
+                            "assessments",
+                            item
+                        );
+
+                    }
+
+                }
+
+
+                if (
+                    Array.isArray(
+                        data.notes
+                    )
+                ) {
+
+                    for (
+                        const item
+                        of data.notes
+                    ) {
+
+                        await dbPut(
+                            "notes",
+                            item
+                        );
+
+                    }
+
+                }
+
+
+                if (
+                    Array.isArray(
+                        data.sticky
+                    )
+                ) {
+
+                    for (
+                        const item
+                        of data.sticky
+                    ) {
+
+                        await dbPut(
+                            "sticky",
+                            item
+                        );
+
+                    }
+
+                }
+
+
+                if (
+                    Array.isArray(
+                        data.schedule
+                    )
+                ) {
+
+                    for (
+                        const item
+                        of data.schedule
+                    ) {
+
+                        await dbPut(
+                            "schedule",
+                            item
+                        );
+
+                    }
+
+                }
+
+
+                if (data.settings) {
+
+                    state.settings =
+                        {
+                            ...state.settings,
+                            ...data.settings
+                        };
+
+
+                    await saveSettings();
+
+                }
+
+
+                await loadData();
+
+
+                showToast(
+                    "StudyPad backup restored."
+                );
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    error
+                );
+
+                showToast(
+                    "Invalid StudyPad backup."
+                );
+
+            }
+
+
+            this.value = "";
+
+        }
+    );
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+document
+    .getElementById(
+        "assessmentSearch"
+    )
+    .addEventListener(
+        "input",
+        renderAssessments
+    );
+
+
+document
+    .getElementById(
+        "noteSearch"
+    )
+    .addEventListener(
+        "input",
+        renderNotes
+    );
+
+
+/* =========================================================
+   RENDER ALL
+========================================================= */
+
+function renderDashboard() {
+
+    renderStats();
+
+    renderDashboardAssessments();
+
+    renderCalendar();
+
+    renderTodaySchedule();
+
+}
+
+
+function renderAll() {
+
+    renderDashboard();
+
+    renderAssessments();
+
+    renderNotes();
+
+    renderSticky();
+
+    renderSchedule();
+
+    applySettings();
+
+}
+
+
+/* =========================================================
+   DATE HELPERS
+========================================================= */
+
+function formatDateInput(date) {
+
+    const year =
+        date.getFullYear();
+
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2,"0");
+
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2,"0");
+
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+function formatDateDisplay(value) {
+
+    if (!value)
+        return "";
+
+
+    const date =
+        new Date(
+            value + "T00:00:00"
+        );
+
+
+    return date.toLocaleDateString(
+        undefined,
+        {
+            weekday:
+                "short",
+
+            day:
+                "numeric",
+
+            month:
+                "short",
+
+            year:
+                "numeric"
+        }
+    );
+
+}
+
+
+function formatDateTime(value) {
+
+    return new Date(
+        value
+    ).toLocaleString(
+        undefined,
+        {
+            dateStyle:
+                "medium",
+
+            timeStyle:
+                "short"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+let toastTimer;
+
+
+function showToast(message) {
+
+    const toast =
+        document.getElementById(
+            "toast"
+        );
+
+
+    toast.textContent =
+        message;
+
+
+    toast.classList.add(
+        "show"
+    );
+
+
+    clearTimeout(
+        toastTimer
+    );
+
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                toast.classList.remove(
+                    "show"
+                );
+
+            },
+            2800
+        );
+
+}
+
+
+/* =========================================================
+   KEYBOARD SHORTCUT
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+
+            document
+                .querySelectorAll(
+                    ".modal.open"
+                )
+                .forEach(
+                    modal =>
+                        modal.classList.remove(
+                            "open"
+                        )
+                );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   CLICK OUTSIDE MODAL
+========================================================= */
+
+document
+    .querySelectorAll(".modal")
+    .forEach(
+        modal => {
+
+            modal.addEventListener(
+                "click",
+                event => {
+
+                    if (
+                        event.target ===
+                        modal
+                    ) {
+
+                        modal.classList.remove(
+                            "open"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   KEEP COUNTDOWNS LIVE
+========================================================= */
+
+setInterval(
+    () => {
+
+        /*
+            Re-render only the dynamic areas.
+        */
+
+        renderStats();
+
+        renderDashboardAssessments();
+
+        renderAssessments();
+
+        renderCalendar();
+
+    },
+    1000
+);
+
+
+/* =========================================================
+   INITIALIZATION
+========================================================= */
+
+async function init() {
+
+    try {
+
+        await openDatabase();
+
+        await loadData();
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "StudyPad database error:",
+            error
+        );
+
+
+        showToast(
+            "Unable to open StudyPad database."
+        );
+
+    }
+
+}
+
+
+init();
+
+
+</script>
+
+</body>
+</html>
