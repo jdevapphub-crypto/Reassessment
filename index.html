@@ -898,14 +898,15 @@ body.light .field select {
 .schedule {
     display: grid;
     grid-template-columns:
-        repeat(7, minmax(120px,1fr));
+        repeat(7, minmax(140px,1fr));
     gap: 8px;
     overflow-x:
         auto;
+    padding-bottom: 10px;
 }
 .day-column {
     min-width:
-        120px;
+        140px;
     min-height:
         400px;
     padding:
@@ -964,6 +965,22 @@ body.light .field select {
         var(--muted);
     margin-top:
         3px;
+}
+.class-actions {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+    justify-content: flex-end;
+}
+.class-actions .small-btn {
+    padding: 4px 8px;
+    font-size: 10px;
+    border-radius: 7px;
+    background: rgba(255,255,255,.05);
+}
+.class-actions .small-btn:hover {
+    background: rgba(255,255,255,.14);
+    color: var(--text);
 }
 
 /* =========================================================
@@ -2331,7 +2348,7 @@ body.light .field select {
      class="modal">
     <div class="modal-box">
         <div class="modal-header">
-            <h2>
+            <h2 id="scheduleModalTitle">
                 Add Class
             </h2>
             <button class="close"
@@ -2385,7 +2402,8 @@ body.light .field select {
                         onclick="closeModal('scheduleModal')">
                     Cancel
                 </button>
-                <button class="btn">
+                <button type="submit"
+                        class="btn">
                     Save Class
                 </button>
             </div>
@@ -3613,12 +3631,55 @@ async function deleteSticky(id) {
 /* =========================================================
    TIMETABLE
 ========================================================= */
-function openScheduleModal() {
+function openScheduleModal(id = null) {
+    const form =
+        document.getElementById(
+            "scheduleForm"
+        );
+    form.reset();
+    form.dataset.editingId = "";
     document
         .getElementById(
-            "scheduleForm"
+            "scheduleModalTitle"
         )
-        .reset();
+        .textContent =
+        "Add Class";
+
+    if (id) {
+        const item =
+            state.schedule.find(
+                s => s.id === id
+            );
+        if (!item) return;
+
+        form.dataset.editingId = id;
+        document
+            .getElementById(
+                "scheduleModalTitle"
+            )
+            .textContent =
+            "Edit Class";
+        document
+            .getElementById(
+                "classDay"
+            )
+            .value = item.day;
+        document
+            .getElementById(
+                "classTime"
+            )
+            .value = item.time;
+        document
+            .getElementById(
+                "className"
+            )
+            .value = item.name;
+        document
+            .getElementById(
+                "classRoom"
+            )
+            .value = item.room || "";
+    }
     openModal(
         "scheduleModal"
     );
@@ -3630,53 +3691,128 @@ document
         "submit",
         async function(event) {
             event.preventDefault();
-            const item = {
-                id:
-                    crypto.randomUUID(),
-                day:
+            const editingId =
+                this.dataset.editingId;
+
+            if (editingId) {
+                /* EDIT existing class */
+                const item =
+                    state.schedule.find(
+                        s => s.id === editingId
+                    );
+                if (!item) return;
+
+                item.day =
                     document
                         .getElementById(
                             "classDay"
                         )
-                        .value,
-                time:
+                        .value;
+                item.time =
                     document
                         .getElementById(
                             "classTime"
                         )
-                        .value,
-                name:
+                        .value;
+                item.name =
                     document
                         .getElementById(
                             "className"
                         )
                         .value
-                        .trim(),
-                room:
+                        .trim();
+                item.room =
                     document
                         .getElementById(
                             "classRoom"
                         )
                         .value
-                        .trim()
-            };
-            await dbPut(
-                "schedule",
-                item
-            );
-            state.schedule.push(
-                item
-            );
-            closeModal(
-                "scheduleModal"
-            );
-            renderSchedule();
-            renderDashboard();
-            showToast(
-                "Class added to timetable."
-            );
+                        .trim();
+
+                await dbPut(
+                    "schedule",
+                    item
+                );
+                closeModal(
+                    "scheduleModal"
+                );
+                renderSchedule();
+                renderDashboard();
+                showToast(
+                    "Class updated."
+                );
+            } else {
+                /* ADD new class */
+                const item = {
+                    id:
+                        crypto.randomUUID(),
+                    day:
+                        document
+                            .getElementById(
+                                "classDay"
+                            )
+                            .value,
+                    time:
+                        document
+                            .getElementById(
+                                "classTime"
+                            )
+                            .value,
+                    name:
+                        document
+                            .getElementById(
+                                "className"
+                            )
+                            .value
+                            .trim(),
+                    room:
+                        document
+                            .getElementById(
+                                "classRoom"
+                            )
+                            .value
+                            .trim()
+                };
+                await dbPut(
+                    "schedule",
+                    item
+                );
+                state.schedule.push(
+                    item
+                );
+                closeModal(
+                    "scheduleModal"
+                );
+                renderSchedule();
+                renderDashboard();
+                showToast(
+                    "Class added to timetable."
+                );
+            }
         }
     );
+
+async function deleteClass(id) {
+    if (
+        !confirm(
+            "Delete this class from your timetable?"
+        )
+    )
+        return;
+    await dbDelete(
+        "schedule",
+        id
+    );
+    state.schedule =
+        state.schedule.filter(
+            s => s.id !== id
+        );
+    renderSchedule();
+    renderDashboard();
+    showToast(
+        "Class deleted."
+    );
+}
 
 const days = [
     "Monday",
@@ -3725,6 +3861,18 @@ function renderSchedule() {
                                 </div>
                                 <div class="class-room">
                                     ${escapeHtml(item.room || "")}
+                                </div>
+                                <div class="class-actions">
+                                    <button
+                                        class="small-btn"
+                                        onclick="openScheduleModal('${item.id}')">
+                                        Edit
+                                    </button>
+                                    <button
+                                        class="small-btn"
+                                        onclick="deleteClass('${item.id}')">
+                                        ×
+                                    </button>
                                 </div>
                             </div>
                         `).join("")
@@ -4298,6 +4446,78 @@ function checkReminders() {
 }
 
 /* =========================================================
+   CLASS REMINDER SYSTEM
+   Notifies 1 hour and 30 minutes before class
+========================================================= */
+function getTodayName() {
+    const today = new Date();
+    const index = today.getDay();
+    return index === 0 ? "Sunday" : days[index - 1];
+}
+
+function classReminderKey(item, type) {
+    const today = formatDateInput(new Date());
+    return `${item.id}_${today}_${type}`;
+}
+
+function classAlreadyReminded(key) {
+    return localStorage.getItem(
+        "studypad_class_reminder_" + key
+    ) === "yes";
+}
+
+function markClassReminded(key) {
+    localStorage.setItem(
+        "studypad_class_reminder_" + key,
+        "yes"
+    );
+}
+
+function checkClassReminders() {
+    const now = new Date();
+    const todayName = getTodayName();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+    state.schedule
+        .filter(item => item.day === todayName)
+        .forEach(item => {
+            const [h, m] = item.time.split(":").map(Number);
+            const classMinutes = h * 60 + m;
+            const diff = classMinutes - currentMinutes;
+
+            /* 1 hour (60 minutes) before class */
+            if (diff === 60) {
+                const key = classReminderKey(item, "1hour");
+                if (!classAlreadyReminded(key)) {
+                    const message =
+                        `Reminder. You have ${item.name} in one hour at ${item.time}${item.room ? " in " + item.room : ""}.`;
+                    sendReminder(
+                        "Class in 1 hour — StudyPad",
+                        message
+                    );
+                    speakReminder(message);
+                    markClassReminded(key);
+                }
+            }
+
+            /* 30 minutes before class */
+            if (diff === 30) {
+                const key = classReminderKey(item, "30min");
+                if (!classAlreadyReminded(key)) {
+                    const message =
+                        `Reminder. You have ${item.name} in thirty minutes at ${item.time}${item.room ? " in " + item.room : ""}.`;
+                    sendReminder(
+                        "Class in 30 minutes — StudyPad",
+                        message
+                    );
+                    speakReminder(message);
+                    markClassReminded(key);
+                }
+            }
+        });
+}
+
+/* =========================================================
    SEND NOTIFICATION
 ========================================================= */
 function sendReminder(
@@ -4332,14 +4552,23 @@ function sendReminder(
 
 /*
     Check every 20 seconds.
-
     This works while the page is active
     and generally while the browser keeps
     the page alive in the background.
 */
 setInterval(
-    checkReminders,
+    () => {
+        checkReminders();
+        checkClassReminders();
+    },
     20000
+);
+
+/* Fallback: check class reminders every 30 seconds
+   so we don't miss the exact minute */
+setInterval(
+    checkClassReminders,
+    30000
 );
 
 /* =========================================================
@@ -4726,7 +4955,7 @@ async function init() {
 }
 
 init();
-      
+
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
         navigator.serviceWorker
@@ -4748,7 +4977,6 @@ if ("serviceWorker" in navigator) {
             );
     });
 }
-      
 </script>
 </body>
 </html>
